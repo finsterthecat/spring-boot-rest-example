@@ -10,5 +10,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface HotelRepository extends PagingAndSortingRepository<Hotel, Long> {
     Hotel findHotelByCity(String city);
-    Page findAll(Pageable pageable);
+    @Override
+	Page<Hotel> findAll(Pageable pageable);
 }

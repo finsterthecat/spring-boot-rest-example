@@ -2,6 +2,7 @@ package com.khoubyari.example.api.rest;
 
 import com.khoubyari.example.domain.RestErrorInfo;
 import com.khoubyari.example.exception.DataFormatException;
+import com.khoubyari.example.exception.ResourceAlreadyExistsException;
 import com.khoubyari.example.exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,17 @@ public abstract class AbstractRestHandler implements ApplicationEventPublisherAw
         return new RestErrorInfo(ex, "You messed up.");
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(value=HttpStatus.CONFLICT, reason="Resource already exists")
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public
+    @ResponseBody
+    RestErrorInfo handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex, WebRequest request, HttpServletResponse response) {
+        log.info("ResourceAlreadyExistsException handler:" + ex.getMessage());
+
+        return new RestErrorInfo(ex, "This already exists");
+    }
+
+    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such resource")
     @ExceptionHandler(ResourceNotFoundException.class)
     public
     @ResponseBody
