@@ -3,6 +3,7 @@
 This is a sample Java / Maven / Spring Boot (version 1.5.6) application that can be used as a starter for creating a microservice complete with built-in health check, metrics and much more. I hope it helps you.
 
 ## How to Run 
+### Run as Java application
 
 This application is packaged as a war which has Tomcat 8 embedded. No Tomcat or JBoss installation is necessary. You run it using the ```java -jar``` command.
 
@@ -23,6 +24,20 @@ Once the application runs you should see something like this
 2017-08-30 17:31:23.091  INFO 19387 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
 2017-08-30 17:31:23.097  INFO 19387 --- [           main] com.khoubyari.example.Application        : Started Application in 22.285 seconds (JVM running for 23.032)
 ```
+### Run using Docker
+
+Once you have successfully run the application as a Java application, consider building and running it within a Docker container. Once you have docker running on your computer, there are two steps:
+
+* Build the image using [docker build](https://docs.docker.com/engine/reference/commandline/build/).
+* Create and start the image in a new docker container using [docker run](https://docs.docker.com/engine/reference/commandline/run/).
+
+```
+build . -t spring-boot-rest-example:1
+docker run -p 8000:8090 -p 8001:8091 spring-boot-rest-example:1
+```
+
+Run this in the base folder of the project. This will create and start the docker container, publishing ports 8090 and 8091 on ports 8000 and 8001 respectively. Fire up swagger as described below (substituting port 8000 for 8090) and test away!
+
 
 ## About the Service
 
