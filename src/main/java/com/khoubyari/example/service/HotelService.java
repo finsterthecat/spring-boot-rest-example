@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.boot.actuate.metrics.GaugeService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,8 @@ public class HotelService {
     /**
      * Update existing hotel. Idempotent so you can update twice with the same outcome the second time.
      * @param hotel
-     * @return
+     * @return Hotel
+     * @throws ResourceNotFoundException when Hotel not found
      */
     public Hotel updateHotel(Hotel hotel) {
     	if (hotelRepository.findOne(hotel.getId()) == null) {
@@ -75,11 +77,16 @@ public class HotelService {
     }
 
     /**
-     * Delete a hotel. Idempotent, so if you delete it twice it deletes the first time and does nothing subsequently.
-     * @param id
+     * Delete a hotel.
+     * @param id The hotel id
+     * @throws ResourceNotFoundException when Hotel not found
      */
     public void deleteHotel(Long id) {
-        hotelRepository.delete(id);
+        try {
+			hotelRepository.delete(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Hotel not found for id: " + id);
+		}
     }
 
     //http://goo.gl/7fxvVf

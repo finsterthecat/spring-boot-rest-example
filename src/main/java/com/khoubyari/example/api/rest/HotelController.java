@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.khoubyari.example.domain.Hotel;
+import com.khoubyari.example.exception.DataFormatException;
 import com.khoubyari.example.service.HotelService;
 
 import io.swagger.annotations.Api;
@@ -44,7 +45,7 @@ public class HotelController extends AbstractRestHandler {
     public void createHotel(@RequestBody Hotel hotel,
                                  HttpServletRequest request, HttpServletResponse response) {
         Hotel createdHotel = this.hotelService.createHotel(hotel);
-        response.setHeader("Location", request.getRequestURL().append("/").append(createdHotel.getId()).toString());
+        response.setHeader("Location", request.getRequestURL().append(createdHotel.getId()).toString());
     }
 
     @RequestMapping(value = "",
@@ -88,7 +89,9 @@ public class HotelController extends AbstractRestHandler {
     							@PathVariable("id") Long id,
     							@RequestBody Hotel hotel,
                                  HttpServletRequest request, HttpServletResponse response) {
-        hotel.setId(id);
+        if (id != hotel.getId()) {
+        	throw new DataFormatException("Cannot update when id is different than hotel's id");
+        }
         this.hotelService.updateHotel(hotel);
     }
 

@@ -41,11 +41,6 @@ public class Hotel {
         return this.id;
     }
 
-    // for tests ONLY
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
