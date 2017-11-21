@@ -38,6 +38,16 @@ docker run -p 8000:8090 -p 8001:8091 spring-boot-rest-example:1
 
 Run this in the base folder of the project. This will create and start the docker container, publishing ports 8090 and 8091 on ports 8000 and 8001 respectively. Fire up swagger as described below (substituting port 8000 for 8090) and test away!
 
+* Build it using docker build
+* Run it using docker run
+
+```
+	docker build . -t spring-boot-rest-example:1
+	docker run -p 8000:8090 -p 8001:8091 spring-boot-rest-example:1
+```
+
+This will run your docker container that contains the application , publishing ports 8090 and 8091 on ports 8000 and 8001 respectively. Fire up swagger as described below (substituting port 8000 for 8009) and test away!
+
 ## About the Service
 
 The service is just a simple hotel review REST service. It uses an in-memory database (H2) to store the data. You can also do with a relational database like MySQL or PostgreSQL. If your database connection properties work, you can call some REST endpoints defined in ```com.khoubyari.example.api.rest.hotelController``` on **port 8090**. (see below)
