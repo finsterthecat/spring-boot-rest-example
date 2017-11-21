@@ -155,14 +155,10 @@ public class HotelControllerTest {
     			.andReturn();
     	long id = getResourceIdFromUrl(result.getResponse().getRedirectedUrl());
 
-        //RETRIEVE
-        ResultActions ra = invokeRetrieveHotel(id)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is((int) id)));
-        checkReturn(ra, newHotel, "$");
+    	Hotel r2 = retrieveHotel(id);
         
         //CREATE again with the retrieved Hotel. Since id is not zero this returns status BadRequest.
-        result = invokeCreateHotel(ra.toString().getBytes())
+        result = invokeCreateHotel(toJson(r2))
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
