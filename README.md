@@ -28,6 +28,7 @@ Once the application runs you should see something like this
 
 Once you have successfully run the application as a Java application, consider building and running it within a Docker container. Once you have docker running on your computer, there are two steps:
 
+<<<<<<< HEAD
 * Build the image using [docker build](https://docs.docker.com/engine/reference/commandline/build/).
 * Create and start the image in a new docker container using [docker run](https://docs.docker.com/engine/reference/commandline/run/).
 
@@ -37,6 +38,17 @@ docker run -p 8000:8090 -p 8001:8091 spring-boot-rest-example:1
 ```
 
 Run this in the base folder of the project. This will create and start the docker container, publishing ports 8090 and 8091 on ports 8000 and 8001 respectively. Fire up swagger as described below (substituting port 8000 for 8090) and test away!
+=======
+* Build it using docker build
+* Run it using docker run
+
+```
+	docker build . -t spring-boot-rest-example:1
+	docker run -p 8000:8090 -p 8001:8091 spring-boot-rest-example:1
+```
+
+This will run your docker container that contains the application , publishing ports 8090 and 8091 on ports 8000 and 8001 respectively. Fire up swagger as described below (substituting port 8000 for 8009) and test away!
+>>>>>>> 827c2e94945e4625353b7b01ec4af7e0025a9b25
 
 
 ## About the Service
