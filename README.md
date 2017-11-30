@@ -29,7 +29,7 @@ Once the application runs you should see something like this
 Once you have successfully run the application as a Java application, consider building and running it within a Docker container. Once you have docker running on your computer, there are two steps:
 
 * Build the image using [docker build](https://docs.docker.com/engine/reference/commandline/build/).
-* Create and start the image in a new docker container using [docker run](https://docs.docker.com/engine/reference/commandline/run/).
+* Create and start a container based on the image using [docker run](https://docs.docker.com/engine/reference/commandline/run/).
 
 ```
 build . -t spring-boot-rest-example:1
