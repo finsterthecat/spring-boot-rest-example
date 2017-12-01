@@ -24,6 +24,13 @@ Once the application runs you should see something like this
 2017-08-30 17:31:23.091  INFO 19387 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8090 (http)
 2017-08-30 17:31:23.097  INFO 19387 --- [           main] com.khoubyari.example.Application        : Started Application in 22.285 seconds (JVM running for 23.032)
 ```
+### Security
+
+Authentication is now implemented using Auth0 security as a service. You will need to create an Auth0 id to use this. Directions can be found in a well-written [quickstart on the auth0 website](https://auth0.com/docs/quickstart/backend/java-spring-security). Until you get that figured out, best to run with ```insecure``` profile:
+
+```
+java -jar -Dspring.profiles.active=test,insecure target/spring-boot-rest-example-0.4.0.war
+```
 ### Run using Docker
 
 Once you have successfully run the application as a Java application, consider building and running it within a Docker container. Once you have docker running on your computer, there are two steps:
@@ -138,7 +145,9 @@ Spring Boot is an "opinionated" application bootstrapping framework that makes i
 
 ### To view your H2 in-memory datbase
 
-The 'test' profile runs on H2 in-memory database. To view and query the database you can browse to http://localhost:8090/h2-console. Default username is 'sa' with a blank password. Make sure you disable this in your production profiles. For more, see https://goo.gl/U8m62X
+The 'test' profile runs on H2 in-memory database. To view and query the database you can browse to http://localhost:8090/h2-console. Default username is 'sa' with a blank password. JDBC Url is jdbc:h2:mem:bootexample.
+
+Make sure you disable this in your production profiles. For more, see https://goo.gl/U8m62X
 
 # Running the project with MySQL
 
@@ -183,7 +192,7 @@ hotel.service:
 ```
         java -jar -Dspring.profiles.active=mysql target/spring-boot-rest-example-0.4.0.war
 or
-        mvn spring-boot:run -Drun.arguments="spring.profiles.active=mysql"
+        mvn spring-boot:run -Drun.arguments="--spring.profiles.active=mysql"
 ```
 
 # Attaching to the app remotely from your IDE

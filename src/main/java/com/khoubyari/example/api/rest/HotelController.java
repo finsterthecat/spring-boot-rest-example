@@ -45,7 +45,7 @@ public class HotelController extends AbstractRestHandler {
     public void createHotel(@RequestBody Hotel hotel,
                                  HttpServletRequest request, HttpServletResponse response) {
         Hotel createdHotel = this.hotelService.createHotel(hotel);
-        response.setHeader("Location", request.getRequestURL().append(createdHotel.getId()).toString());
+        response.setHeader("Location", request.getRequestURL().append("/").append(createdHotel.getId()).toString());
     }
 
     @RequestMapping(value = "",
@@ -90,7 +90,7 @@ public class HotelController extends AbstractRestHandler {
     							@RequestBody Hotel hotel,
                                  HttpServletRequest request, HttpServletResponse response) {
         if (id != hotel.getId()) {
-        	throw new DataFormatException("Cannot update when id is different than hotel's id");
+        		throw new DataFormatException("Cannot update when id is different than hotel's id");
         }
         this.hotelService.updateHotel(hotel);
     }

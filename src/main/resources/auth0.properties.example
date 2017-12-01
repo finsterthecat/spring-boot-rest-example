@@ -1,0 +1,5 @@
+#
+# Assign appropriate values and save as auth0.properties. Consult https://auth0.com/docs/quickstart/backend/java-spring-security
+#
+auth0.issuer:https://{DOMAIN}/
+auth0.apiAudience:{API_AUDIENCE}
