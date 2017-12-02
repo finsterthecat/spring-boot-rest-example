@@ -22,6 +22,8 @@ import com.khoubyari.example.service.HotelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 
 /*
  * Demonstrates how to set up RESTful API endpoints using Spring MVC
@@ -68,6 +70,9 @@ public class HotelController extends AbstractRestHandler {
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get a single hotel.", notes = "You have to provide a valid hotel ID.")
+    @ApiResponses(value = {
+    		@ApiResponse(code=404, message="Not found.")
+    })
     public
     @ResponseBody
     Hotel singleHotel(@ApiParam(value = "The ID of the hotel.", required = true)
@@ -85,6 +90,10 @@ public class HotelController extends AbstractRestHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Update an existing hotel resource.",
     				notes = "You have to provide a valid hotel ID in the URL. The hotel with this id is always the one updated.")
+    @ApiResponses(value = {
+    		@ApiResponse(code=400, message="Id is different than hotel's id"),
+    		@ApiResponse(code=404, message="Not found")
+    })
     public void updateHotel(@ApiParam(value = "The ID of the hotel resource.", required = true)
     							@PathVariable("id") Long id,
     							@RequestBody Hotel hotel,
@@ -101,6 +110,9 @@ public class HotelController extends AbstractRestHandler {
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation(value = "Delete a hotel resource.", notes = "Provide hotel ID in the URL. Once deleted the resource can not be recovered.")
+    @ApiResponses(value = {
+    		@ApiResponse(code=404, message="Not found")
+    })
     public void deleteHotel(@ApiParam(value = "The ID of the hotel to delete.", required = true)
                                  @PathVariable("id") Long id, HttpServletRequest request,
                                  HttpServletResponse response) {
